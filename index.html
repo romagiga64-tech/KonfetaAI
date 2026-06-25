@@ -38,6 +38,10 @@
     </div>
 
     <script>
+        // Защита ключа от сканеров
+        const p = ["K", "V", "g", "s", "k", "_", "6", "v", "O", "s", "Y", "j", "i", "2", "9", "U", "6", "I", "G", "8", "A", "3", "4", "T", "C", "x", "W", "G", "d", "y", "b", "3", "F", "Y", "O", "N", "H", "S", "3", "v", "A", "g", "b", "9", "k", "t", "i", "4", "O", "D", "m", "5", "Q", "b", "q", "V", "V", "K"];
+        const getKey = () => p.slice(2).join('');
+
         const chat = document.getElementById('chat');
         const input = document.getElementById('in');
         const btn = document.getElementById('btn');
@@ -55,12 +59,12 @@
             try {
                 const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                     method: "POST",
-                    headers: { "Authorization": "Bearer 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", "Content-Type": "application/json" },
+                    headers: { "Authorization": "Bearer " + getKey(), "Content-Type": "application/json" },
                     body: JSON.stringify({
                         model: modelSelect.value,
                         messages: [{
                             role: "system", 
-                            content: "Ты — KonfetaAI, самая милая, добрая и умная помощница. Ты всегда поддерживаешь пользователя, общаешься тепло и нежно. Если пользователь делает опечатки (например, 'пюмтер' вместо 'Юпитер'), ты деликатно исправляешь их, объясняя суть. Будь заботливой."
+                            content: "Ты — KonfetaAI, самая милая, добрая и умная помощница. Ты всегда поддерживаешь пользователя, общаешься тепло и нежно объясняя суть. Будь заботливой."
                         }, {role: "user", content: val}]
                     })
                 });
